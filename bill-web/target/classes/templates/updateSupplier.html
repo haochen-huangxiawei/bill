@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xm1ns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>修改供应商页面</title>
+<style type="text/css">
+#div {
+	border: 1px solid white;
+	height: 700px;
+	width: 1100px;
+	margin: auto;
+	background-color: white;
+}
+
+#div #p {
+	font-size: 60px;
+	text-align: center;
+	background-color: lightskyblue;
+	border: 1px solid lightskyblue;
+	height: 100px;
+	width: 1100px;
+	padding-top: 35px;
+	color: white;
+	font-weight: 900;
+	margin-top: -1px;
+}
+
+img {
+	height: 45px;
+}
+
+#span {
+	font-size: 16px;
+}
+
+#solid {
+	border: 2px solid dodgerblue;
+	background-color: lightskyblue;
+	height: 680px;
+	width: 3px;
+	position: absolute;
+	left: 360px;
+	bottom: -176px;
+}
+
+#bill {
+	font-size: 28px;
+	font-weight: 500;
+	margin-left: 250px;
+	margin-top: -300px;
+}
+
+#admin {
+	border: 1px solid red;
+	background-color: white;
+	height: 420px;
+	width: 800px;
+	margin-left: 240px;
+	margin-top: 45px;
+	font-size: 20px;
+	position: absolute;
+	top: 235px;
+	right: 185px;
+}
+
+#admin p {
+	margin-left: 40px;
+}
+
+#idd {
+	background-color: lightskyblue;
+	border: 1px solid lightskyblue;
+	height: 460px;
+	width: 840px;
+	margin-left: 242px;
+	margin-top: 30px;
+}
+
+#butten input {
+	background-color: #1E90FF;
+	height: 35px;
+	width: 75px;
+	color: white;
+	margin-right: 30px;
+}
+
+#butten {
+	padding-left: 260px;
+	margin-top: 50px;
+}
+
+span {
+	color: red;
+}
+</style>
+<script src="js/jquery-1.8.3.js" th:src="@{/js/jquery-1.8.3.js}"
+	type="text/javascript" charset="utf-8"></script>
+<script src="js/supplierregister.js" th:src="@{/js/supplierregister.js}"
+	type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="div">
+		<p id="p">
+			超市账单管理系统&emsp;&emsp;&emsp;<span id="span"
+				th:text="欢迎您：+${session.user.uName}"></span>
+		</p>
+		<div id="img">
+			<p id="p1">
+				<a href="bill" th:href="@{/bill}"><img
+					th:src="@{/img/QQ图片20191118225346.png}" /></a>
+			</p>
+			<p id="p2">
+				<a href="supplier" th:href="@{/supplier}"><img
+					th:src="@{/img/QQ图片20191118225341.png}" /></a>
+			</p>
+			<p id="p3">
+				<a href="user" th:href="@{/user}"><img
+					th:src="@{/img/QQ图片20191118225334.png}" /></a>
+			</p>
+			<p id="p4">
+				<a href="login" th:href="@{/login}"><img
+					th:src="@{/img/QQ图片20191118225326.png}" /></a>
+			</p>
+		</div>
+		<p id="bill">供应商管理>></p>
+		<hr style="width: 885px; margin-right: -8px;" />
+		<p id="solid"></p>
+		<div id="idd"></div>
+		<div id="admin">
+			<p id="pp"></p>
+			<form action="../addSupplier" id="myform">
+				<!-- 修改提交方式为DELETE -->
+				<!-- <input type="hidden" name="_method" value="DELETE" /> -->
+
+				<p>
+					供应商编号: <input id="id" type="text" name="sId" size="35px" readonly
+						style="font-size: 20px" th:value="${supp.sId }" /><span
+						id="errid">*</span>
+				</p>
+				<p>
+					供应商名称: <input id="name" type="text" name="supName" size="35px"
+						style="font-size: 20px" th:value="${supp.supName }" /><span
+						id="errname">*</span>
+				</p>
+				<p>
+					供应商描述：<input id="describe" type="text" name="intro" size="35px"
+						style="font-size: 20px" th:value="${supp.intro }" />
+				</p>
+				<p>
+					供应商联系人： <input id="contact" type="text" name="contacts" size="35px"
+						style="font-size: 20px" th:value="${supp.contacts }" /><span
+						id="errcontact">*</span>
+				</p>
+				<p>
+					供应商电话: <input id="phone" type="text" name="phone" size="35px"
+						style="font-size: 20px;" th:value="${supp.phone }" /><span
+						id="errphone">*</span>
+				</p>
+				<p>
+					供应商传真： <input id="fax" type="text" name="faxes" size="35px"
+						style="font-size: 20px" th:value="${supp.faxes }" /><span
+						id="errfax">*</span>
+				</p>
+				<p>
+					供应商地址: <input id="site" type="text" name="site" size="35px"
+						style="font-size: 20px;" th:value="${supp.site }" /><span
+						id="errsite">*</span>
+				</p>
+				<p id="butten">
+					<input type="submit" value="提交" /> <a th:href="@{/supplier}"><input
+						type="button" value="返回" /></a>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

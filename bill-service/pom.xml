@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hxw.bill</groupId>
+		<artifactId>bill</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>bill-service</artifactId>
+
+	<dependencies>
+		<dependency><!-- 自己定义的domain -->
+			<groupId>com.hxw.bill</groupId>
+			<artifactId>bill-domain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 引入通用的接口依赖 -->
+		<dependency>
+			<groupId>com.hxw.bill</groupId>
+			<artifactId>bill-interfaces</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- springboot相关的启动器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- 整合dubbo的启动器 -->
+		<dependency>
+			<groupId>com.alibaba.boot</groupId>
+			<artifactId>dubbo-spring-boot-starter</artifactId>
+			<!--<version>0.2.1.RELEASE</version> -->
+			<version>0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.spring</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+		<!-- spring整合mybatis的启动器 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- mysql驱动包 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

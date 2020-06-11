@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxw.springboot.dao.SupplierMapper">
+  <resultMap id="BaseResultMap" type="com.hxw.springboot.pojo.Supplier">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="sup_name" jdbcType="VARCHAR" property="supName" />
+    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="faxes" jdbcType="VARCHAR" property="faxes" />
+  </resultMap>
+  
+  <!-- 查询所有供应商名称 -->
+  <select id="showAllSupName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+  </select>
+  
+  <!--  查询所有供应商 -->
+  <select id="showAllSupplier" parameterType="map" resultMap="BaseResultMap">
+  	SELECT 
+		  <include refid="Base_Column_List" />
+	   FROM supplier WHERE 1=1 
+    <if test="supName != null">
+        AND sup_name LIKE CONCAT(CONCAT('%',#{supName}),'%')
+    </if>
+    <if test="intro != null and intro!=''">
+        AND intro LIKE CONCAT(CONCAT('%',#{intro}),'%')
+    </if>
+    LIMIT #{pageNo},#{pageSize}
+  </select>
+  
+  <!-- 总页数 -->
+  <select id="countSupplier" parameterType="com.hxw.springboot.pojo.Supplier" resultType="Integer">
+  	SELECT COUNT(1) FROM supplier WHERE 1=1 
+    <if test="supName != null">
+        AND sup_name LIKE CONCAT(CONCAT('%',#{supName}),'%')
+    </if>
+    <if test="intro != null and intro!=''">
+        AND intro LIKE CONCAT(CONCAT('%',#{intro}),'%')
+    </if>
+  </select>
+  
+  <sql id="Base_Column_List">
+    s_id, sup_name, intro, contacts, phone, site, faxes
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from supplier
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxw.springboot.pojo.Supplier">
+    insert into supplier (s_id, sup_name, intro, 
+      contacts, phone, site, 
+      faxes)
+    values (#{sId,jdbcType=INTEGER}, #{supName,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, 
+      #{faxes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxw.springboot.pojo.Supplier">
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="supName != null">
+        sup_name,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="faxes != null">
+        faxes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="supName != null">
+        #{supName,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="faxes != null">
+        #{faxes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxw.springboot.pojo.Supplier">
+    update supplier
+    <set>
+      <if test="supName != null">
+        sup_name = #{supName,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="faxes != null">
+        faxes = #{faxes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxw.springboot.pojo.Supplier">
+    update supplier
+    set sup_name = #{supName,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      faxes = #{faxes,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

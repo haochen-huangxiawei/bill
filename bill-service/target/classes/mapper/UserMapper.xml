@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxw.springboot.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.hxw.springboot.pojo.User">
+    <result column="u_name" jdbcType="VARCHAR" property="uName" />
+    <result column="u_pwd" jdbcType="VARCHAR" property="uPwd" />
+    <result column="u_sex" jdbcType="CHAR" property="uSex" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="u_site" jdbcType="VARCHAR" property="uSite" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="u_age" jdbcType="VARCHAR" property="uAge" />
+  </resultMap>
+  
+  <!-- 登陆 -->
+  <select id="login" resultMap="BaseResultMap" parameterType="com.hxw.springboot.pojo.User">
+  	SELECT * FROM USER WHERE u_name=#{uName} AND u_pwd=#{uPwd}
+  </select>
+  
+  <!-- 显示所有用户 -->
+  <select id="showAllUser" resultMap="BaseResultMap" parameterType="String">
+  	SELECT * FROM `user` WHERE 1=1 
+  	<if test="usrName!=null and usrName!=''">
+  		AND u_name LIKE CONCAT(CONCAT('%',#{usrName}),'%')
+  	</if>
+  </select>
+  
+  <!-- 根据用户名查询当前用户信息 -->
+  <select id="queryUser" resultMap="BaseResultMap" parameterType="String">
+  	SELECT * FROM `user` WHERE 1=1 AND u_name =#{uName}
+  </select>
+  
+  <!-- 修改用户 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxw.springboot.pojo.User">
+  	 update user
+    <set>
+      <if test="uName != null">
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uPwd != null">
+        u_pwd = #{uPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null">
+        u_sex = #{uSex},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="uSite != null">
+        u_site = #{uSite,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId},
+      </if>
+      <if test="uAge != null">
+        u_age = #{uAge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where u_name = #{uName,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 判断用户输入密码是否正确 -->
+  <select id="queryPwd" resultMap="BaseResultMap" parameterType="com.hxw.springboot.pojo.User">
+  	SELECT * FROM `user` WHERE 1=1 AND u_name =#{uName} AND u_pwd=#{uPwd}
+  </select>
+  
+  <insert id="insert" parameterType="com.hxw.springboot.pojo.User">
+    insert into user (u_name, u_pwd, u_sex, 
+      phone, u_site, manager, 
+      u_id, u_age)
+    values (#{uName,jdbcType=VARCHAR}, #{uPwd,jdbcType=VARCHAR}, #{uSex,jdbcType=CHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{uSite,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
+      #{uId,jdbcType=INTEGER}, #{uAge,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxw.springboot.pojo.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uName != null">
+        u_name,
+      </if>
+      <if test="uPwd != null">
+        u_pwd,
+      </if>
+      <if test="uSex != null">
+        u_sex,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="uSite != null">
+        u_site,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="uAge != null">
+        u_age,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uName != null">
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uPwd != null">
+        #{uPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="uSex != null">
+        #{uSex,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="uSite != null">
+        #{uSite,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="uAge != null">
+        #{uAge,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

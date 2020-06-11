@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户添加数据</title>
+<style type="text/css">
+/*添加数据*/
+#div {
+	border: 1px solid white;
+	height: 700px;
+	width: 1100px;
+	margin: auto;
+	background-color: white;
+}
+
+#div #p {
+	font-size: 60px;
+	text-align: center;
+	background-color: lightskyblue;
+	border: 1px solid lightskyblue;
+	height: 100px;
+	width: 1100px;
+	padding-top: 35px;
+	color: white;
+	font-weight: 900;
+	margin-top: -1px;
+}
+
+img {
+	height: 45px;
+}
+
+#span {
+	font-size: 16px;
+}
+
+#solid {
+	border: 2px solid dodgerblue;
+	background-color: lightskyblue;
+	height: 680px;
+	width: 3px;
+	position: absolute;
+	left: 360px;
+	bottom: -176px;
+}
+
+#bill {
+	font-size: 28px;
+	font-weight: 500;
+	margin-left: 250px;
+	margin-top: -300px;
+}
+
+#admin {
+	border: 1px solid red;
+	background-color: white;
+	height: 520px;
+	width: 800px;
+	margin-right: -70px;
+	margin-top: 45px;
+	font-size: 20px;
+	position: absolute;
+	top: 235px;
+	right: 250px;
+	margin-top: 45px;
+}
+
+#admin p {
+	margin-left: 40px;
+}
+
+#idd {
+	background-color: lightskyblue;
+	border: 1px solid lightskyblue;
+	height: 560px;
+	width: 840px;
+	margin-left: 242px;
+	margin-top: 30px;
+}
+
+#butten input {
+	background-color: #1E90FF;
+	height: 35px;
+	width: 75px;
+	color: white;
+	margin-right: 30px;
+}
+
+#butten {
+	padding-left: 260px;
+	margin-top: 70px;
+}
+
+span {
+	color: red;
+}
+</style>
+<script src="js/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/userregister.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="div">
+		<p id="p">
+			超市账单管理系统&emsp;&emsp;&emsp;<span id="span"
+				th:text="欢迎您：+${session.user.uName}"></span>
+		</p>
+		<div id="img">
+			<p id="p1">
+				<a href="BillServlet.do"><img src="img/QQ图片20191118225346.png" /></a>
+			</p>
+			<p id="p2">
+				<a href="SupplierServlet.do"><img
+					src="img/QQ图片20191118225341.png" /></a>
+			</p>
+			<p id="p3">
+				<a href="UserServlet.do"><img src="img/QQ图片20191118225334.png" /></a>
+			</p>
+			<p id="p4">
+				<a href="LoginServlet.do"><img src="img/QQ图片20191118225326.png" /></a>
+			</p>
+		</div>
+		<p id="bill">用户管理>></p>
+		<hr style="width: 885px; margin-right: -8px;" />
+		<p id="solid"></p>
+		<div id="idd"></div>
+		<div id="admin">
+			<p id="pp"></p>
+			<form method="post" action="user" id="myform">
+				<!-- 修改提交方式为PUT -->
+				<input type="hidden" name="_method" value="PUT" />
+				<p>
+					用户名称: <input id="name" type="text" name="uName" size="35px"
+						style="font-size: 20px" /><span id="errname">*</span>
+				</p>
+				<p>
+					用户密码： <input id="pwd" type="text" name="uPwd" size="35px"
+						style="font-size: 20px;" /><span id="errpwd">*</span>
+				</p>
+				<p>
+					确认密码： <input id="repwd" type="text" name="repwd" size="35px"
+						style="font-size: 20px" /><span id="errrepwd">*</span>
+				</p>
+				<p>
+					用户性别： <select name="uSex">
+						<option value="男">男</option>
+						<option value="女">女</option>
+					</select>
+				</p>
+				<p>
+					用户年龄： <input id="age" type="text" name="uAge" size="35px"
+						style="font-size: 20px" /><span id="errage">*</span>
+				</p>
+				<p>
+					用户电话: <input id="phone" type="text" name="phone" size="35px"
+						style="font-size: 20px;" /><span id="errphone">*</span>
+				</p>
+				<p>
+					用户地址:
+					<textarea id="site" rows="3" cols="50" name="uSite"></textarea>
+				</p>
+				<p>
+					用户权限: <input id="manager" type="text" name="manager" size="35px"
+						style="font-size: 20px;" /><span id="errmanager">*</span>
+				</p>
+				<p id="butten">
+					<input type="submit" value="提交" /> <a href="user"><input
+						type="button" value="返回" /></a>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

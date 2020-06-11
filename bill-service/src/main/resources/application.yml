@@ -1,0 +1,33 @@
+##修改服务的启动端口
+server:  
+  port:    9096
+ 
+##dubbo的配置
+dubbo: 
+  application:
+    name: hello-provider  ##注入到注册中心 的名字
+  registry: 
+      address: zookeeper://127.0.0.1:2181 ##配置注册中心
+#      address: redis://127.0.0.1:6379
+      port: 20880
+      protocol: dubbo  
+    
+## 配置数据源
+spring:   
+   datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://localhost:3306/jsplesson01?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+## 配置mybatis相关的核心配置文件
+mybatis:
+  ##配置映射文件所在的位置
+  mapper-locations: classpath:mapper/*.xml
+
+#配置mybatis所指定的mapper接口的日志级别为debug,用于showSql
+logging:
+  level: 
+    org.dubbo.dao:  debug
+   
+    

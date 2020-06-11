@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xm1ns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>处理按商品名称和是否付款查询商品</title>
+<style type="text/css">
+#div {
+	border: 1px solid white;
+	height: 700px;
+	width: 1100px;
+	margin: auto;
+	background-color: white;
+}
+
+#div #p {
+	font-size: 60px;
+	text-align: center;
+	background-color: lightskyblue;
+	border: 1px solid lightskyblue;
+	height: 100px;
+	width: 1100px;
+	padding-top: 35px;
+	color: white;
+	font-weight: 900;
+	margin-top: -1px;
+}
+
+img {
+	height: 45px;
+}
+
+#span {
+	font-size: 16px;
+}
+
+#admin {
+	font-size: 30px;
+	font-weight: 900;
+	position: absolute;
+	left: 800px;
+	bottom: 350px;
+}
+
+#solid {
+	border: 2px solid dodgerblue;
+	background-color: lightskyblue;
+	height: 596px;
+	width: 3px;
+	position: absolute;
+	left: 360px;
+	bottom: -89px;
+}
+
+#input {
+	margin-left: 218px;
+	margin-top: -324px;
+	border: 1px solid royalblue;
+	height: 55px;
+	width: 843px;
+	padding-left: 40px;
+	padding-top: 20px;
+	background-color: royalblue;
+	color: white;
+}
+
+#bill {
+	font-size: 28px;
+	font-weight: 500;
+	margin-left: 250px;
+	margin-top: -10px;
+}
+
+#insert {
+	font-size: 22px;
+	border: 1px solid royalblue;
+	width: 120px;
+	height: 35px;
+	margin-left: 900px;
+	margin-top: -60px;
+	padding-left: 20px;
+	color: white;
+	background-color: royalblue;
+}
+
+#form {
+	border: 1px solid lightskyblue;
+	background-color: lightskyblue;
+	margin-left: 218px;
+	height: 60px;
+}
+
+table {
+	width: 880px;
+	background-color: white;
+}
+</style>
+<script src="../static/js/jquery-1.8.3.js" th:src="@{/js/jquery-1.8.3.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="div">
+		<p id="p">
+			超市账单管理系统&emsp;&emsp;&emsp;<span id="span"
+				th:text="欢迎您：+${session.user.uName}"></span>
+		</p>
+		<div id="img">
+			<p id="p1">
+				<a href="bill"><img src="img/QQ图片20191118225346.png" /></a>
+			</p>
+			<p id="p2">
+				<a href="supplier"><img
+					src="img/QQ图片20191118225341.png" /></a>
+			</p>
+			<p id="p3">
+				<a href="user"><img src="img/QQ图片20191118225334.png" /></a>
+			</p>
+			<p id="p4">
+				<a href="login"><img src="img/QQ图片20191118225326.png" /></a>
+			</p>
+		</div>
+
+		<form method="get" action="../bill" id="myform">
+			<p id="input">
+				商品名称：<input type="text" id="billnamebillname" size="35"
+					name="bName" style="height: 30px;" />&emsp;&emsp;&emsp; 是否付款： <select
+					name="payment">
+					<option value="">--请选择--</option>
+					<option value="是">是</option>
+					<option value="否">否</option>
+				</select>&emsp;&emsp;&emsp; <input type="submit" value="组合查询"
+					style="height: 35px; width: 100px; font-size: 17px; font-weight: 700;" />&emsp;&emsp;&emsp;<br />
+				<span id="errbill"></span>
+			</p>
+		</form>
+
+		<p id="bill">账单管理>></p>
+			<form id="insert" method="post" action="bill">
+				<input type="submit" value="添加数据">
+			</form>
+		<hr style="width: 885px; margin-right: -4px;" />
+		<p id="solid"></p>
+
+		<div id="form">
+			<table border="1">
+				<tr>
+					<td>账单编号</td>
+					<td>商品名称</td>
+					<td>商品数量</td>
+					<td>交易金额</td>
+					<td>是否付款</td>
+					<td>供应商名称</td>
+					<td>商品描述</td>
+					<td>账单时间</td>
+				</tr>
+			
+			<tr th:each="bill : ${billList}">
+				<td th:text="${bill.bId}"></td>
+				<td th:attr="update_uri=@{/bill/}+${bill.bId}" class="update"><span th:text="${bill.bName}"></span></td>
+				<td th:text="${bill.count}"></td>
+				<td th:text="${bill.bQuote}"></td>
+				<td th:text="${bill.payment}"></td>
+				<td th:text="${bill.supName}"></td>
+				<td th:text="${bill.bDescribe}"></td>
+				<td th:text="${#dates.format(bill.bTime,'yyyy-MM-dd')}"></td>
+			</tr>
+		</table>
+		
+		<form action="" method="post" id="updateForm">
+		<!--发送put请求修改员工数据-->
+		<!-- 1、SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的)
+				此过滤器的作用 是用于模拟PUT和delete这些浏览器不支持的提交方式
+			 2、页面创建一个post表单
+			 3、创建一个input项，name="_method";值就是我们指定的请求方式 -->
+		 <input type="hidden" name="_method" value="DELETE" /> 
+		</form>
+		
+		<script type="text/javascript">
+			//点击商品名称跳转页面
+			$(function(){
+				$(".update").click(function(){
+					var uri = $(this).attr("update_uri");
+					$("#updateForm").attr("action", uri);
+					$("#updateForm").submit();
+			})
+		})
+		</script>
+
+		<a href="../bill?pageIndex=1}" th:href="@{/bill?pageIndex=1}">首页</a>
+		<a href="../bill?pageIndex=${pageNo>1?pageNo-1:1 }" th:href="@{/bill(pageIndex=${pageNo>1?pageNo-1:1})}">上一页</a>
+		<a href="../bill?pageIndex=${pageNo<count?pageNo+1:count }" th:href="@{/bill(pageIndex=${pageNo<count?pageNo+1:count})}">下一页</a>
+		<a href="../bill?pageIndex=${count }" th:href="@{/bill(pageIndex=${count})}">末页</a>  
+		<span th:text="${count}"></span>/<span th:text="${pageNo}+'页'"> </span>
+		</div>
+	</div>
+</body>
+</html>

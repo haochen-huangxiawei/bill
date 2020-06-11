@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xm1ns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>修改账单</title>
+<style type="text/css">
+#div {
+	border: 1px solid white;
+	height: 700px;
+	width: 1100px;
+	margin: auto;
+	background-color: white;
+}
+
+#div #p {
+	font-size: 60px;
+	text-align: center;
+	background-color: lightskyblue;
+	border: 1px solid lightskyblue;
+	height: 100px;
+	width: 1100px;
+	padding-top: 40px;
+	color: white;
+	font-weight: 900;
+	margin-top: -1px;
+}
+
+img {
+	height: 45px;
+}
+
+#span {
+	font-size: 16px;
+}
+
+#solid {
+	border: 2px solid dodgerblue;
+	background-color: lightskyblue;
+	height: 760px;
+	width: 3px;
+	position: absolute;
+	left: 360px;
+	bottom: -255px;
+}
+
+#bill {
+	font-size: 28px;
+	font-weight: 500;
+	margin-left: 250px;
+	margin-top: -300px;
+}
+
+#admin {
+	border: 1px solid red;
+	background-color: white;
+	height: 550px;
+	width: 800px;
+	margin-left: 240px;
+	margin-top: 45px;
+	font-size: 20px;
+	position: absolute;
+	top: 260px;
+	right: 185px;
+}
+
+#admin p {
+	line-height: 30px;
+	margin-left: 40px;
+}
+
+#id {
+	background-color: lightskyblue;
+	border: 1px solid lightskyblue;
+	height: 585px;
+	width: 840px;
+	margin-left: 242px;
+	margin-top: 30px;
+}
+
+#butten input {
+	background-color: #1E90FF;
+	height: 35px;
+	width: 75px;
+	color: white;
+	margin-right: 30px;
+}
+
+#butten {
+	padding-left: 260px;
+	margin-top: 130px;
+}
+
+span {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<div id="div">
+		<p id="p">
+			超市账单管理系统&emsp;&emsp;&emsp;<span id="span"
+				th:text="欢迎您：+${session.user.uName}"></span>
+		</p>
+		<div id="img">
+			<p id="p1">
+				<a href="bill" th:href="@{/bill}"><img
+					th:src="@{/img/QQ图片20191118225346.png}" /></a>
+			</p>
+			<p id="p2">
+				<a href="supplier" th:href="@{/supplier}"><img
+					th:src="@{/img/QQ图片20191118225341.png}" /></a>
+			</p>
+			<p id="p3">
+				<a href="user" th:href="@{/user}"><img
+					th:src="@{/img/QQ图片20191118225334.png}" /></a>
+			</p>
+			<p id="p4">
+				<a href="login" th:href="@{/login}"><img
+					th:src="@{/img/QQ图片20191118225326.png}" /></a>
+			</p>
+		</div>
+		<p id="bill">账单管理>></p>
+		<hr style="width: 885px; margin-right: -8px;" />
+		<p id="solid"></p>
+		<div id="id"></div>
+		<div id="admin">
+			<p id="pp"></p>
+			<form action="../addBill" id="myform">
+				<!-- 修改提交方式为DELETE -->
+				<!-- <input type="hidden" name="_method" value="DELETE" /> -->
+				<p>
+					账单编号: <input id="billid" type="text" name="bId" size="35px"
+						readonly style="font-size: 20px" th:value="${bill.bId }" /><span
+						id="errid">*</span>
+				</p>
+				<p>
+					交易金额: <input id="billmone" type="text" name="bQuote" size="35px"
+						style="font-size: 20px" th:value="${bill.bQuote }" /><span
+						id="errmone">*</span>
+				</p>
+				<p>
+					交易单位： <input id="billunit" type="text" name="unit" size="35px"
+						style="font-size: 20px" th:value="${bill.unit }" /><span
+						id="errunit">*</span>
+				</p>
+				<p>
+					交易数量: <input id="billcount" type="text" name="count" size="35px"
+						style="font-size: 20px;" th:value="${bill.count }" /><span
+						id="errcount">*</span>
+				</p>
+				<p>
+					交易时间: <input id="billcount" type="text" name="bTime" size="35px"
+						style="font-size: 20px;"
+						th:value="${#dates.format(bill.bTime,'yyyy-MM-dd')}" /><span
+						id="time">*</span>
+				</p>
+				<p>
+					商品名称: <input id="billcount" type="text" name="bName" size="35px"
+						style="font-size: 20px;" th:value="${bill.bName }" /><span
+						id="time">*</span>
+				</p>
+				<p>
+					商品描述： <input id="billdescribe" type="text" name="bDescribe"
+						size="35px" style="font-size: 20px;" th:value="${bill.bDescribe }" /><span
+						id="time">*</span>
+				</p>
+				<p>
+					所属供应商: <select name="sId">
+						<option th:each="supplier : ${supplierList}" th:value="${supplier.sId}" th:text="${supplier.supName}"></option>
+						<option th:each="supplier : ${supplierList}" th:if="${supplier.sId==bill.sId}" selected="selected" th:value="${supplier.sId}" th:text="${supplier.supName}"></option>
+					</select>
+				</p>
+				<p>
+					是否付款: <select name="payment">
+						<option value="是">是</option>
+						<option value="否">否</option>
+					</select>
+				</p>
+				<p id="butten">
+					<input type="submit" value="修改" /> <a th:href="@{/bill}"><input
+						type="button" value="返回" /></a>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

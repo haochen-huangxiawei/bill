@@ -1,0 +1,14 @@
+##修改服务的启动端口
+server:  
+  port:    9097
+ 
+##dubbo的配置
+dubbo: 
+  application:
+    name: hello-consumer  ##注入到注册中心 的名字
+  registry: 
+     address: zookeeper://127.0.0.1:2181 ##配置注册中心的地址
+#     address: redis://127.0.0.1:6379
+     port: 20880
+     protocol: dubbo   
+     
